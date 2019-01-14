@@ -311,30 +311,25 @@ function searchByHeight(people) {
       case "family":
       let children = getChildren(person, people);
 
-      let grandkids = getGrandkids(children, people);
+     // add 
 
       if (children.length > 0) {
         children = children.map(function (el) {
           return ' ' + el.firstName + ' ' + el.lastName;
         });
       }
-      if (grandkids.length > 0) {
-        grandkids = grandkids.map(function (el) {
-          return ' ' + el.firstName + ' ' + el.lastName;
-        });
-      }
-      let spouse = getSpouse(person, people);
+      
+     
+//add
+      
 
-      if (spouse.length > 0) {
-        spouse = spouse[0].firstName;
-      }
+      var personFamily = "Children: " + children + "\n";
+      
+     
+      alert(personFamily);
+      mainMenu(person, people);
+      break;
 
-      var parents = getParents(person, people);
-
-      var personFamily = "Parents: " + parents + "\n";
-      personFamily += "Children: " + children + "\n";
-      personFamily += "Current Spouse: " + spouse + "\n";
-      personFamily += "Grandkids: " + grandkids + "\n";
       case "descendants":
       //alert(getDescendants(person, people, 1));
       mainMenu(person, people);
@@ -351,6 +346,16 @@ function searchByHeight(people) {
   }
   
   
+  function getChildren(person, people) {
+    var children = people.filter(function (el) {
+      if (el.parents.includes(person.id)) {
+        return true;
+      }
+    });
+    return children;
+  }
+  
+ 
    function searchByName(people){
     var firstName = promptFor("What is the person's first name?", chars);
     var lastName = promptFor("What is the person's last name?", chars);
