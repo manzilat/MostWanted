@@ -198,16 +198,28 @@ function searchByHeight(people) {
   return newArray;
 }
 
-   function searchByDob(people){
-    let userInputDob = prompt("what is the dob of the person?");
-    let newArray = people.filter(function (el) {
-      if(el.dob == userInputDob) {
-        return true ;
+   
+
+  function searchByDob(people) {
+    let newArray = [];
+    do {
+      let userInputDob = prompt("what is the dob of the person?");
+  
+      newArray = people.filter(function (el) {
+        if(el.dob == userInputDob) {
+          return true;
+        }
+      });
+  
+      if (newArray.length < 1) {
+        alert("No results. Make sure your input is valid! Please try again.");
       }
-      // return true if el.weight matches userInputHeight
-    });
-     return newArray;
+  
+    } while (newArray.length < 1);
+  
+    return newArray;
   }
+
   function searchByOccupation(people) {
     let newArray = [];
     do {
@@ -289,8 +301,12 @@ function searchByHeight(people) {
     }
      var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
      switch(displayOption){
+       
       case "info":
-      // TODO: get person's info
+      displayPerson(person, people);
+      mainMenu(person, people);
+      break;// TODO: get person's info
+
       break;
       case "family":
       // TODO: get person's family
