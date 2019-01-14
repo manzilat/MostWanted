@@ -158,22 +158,26 @@ function searchByEyeColor(people) {
   return newArray;
 }
 
-   function searchByGender(people){
-    let userInputGender = prompt("what is the Gender of the person?");
-     let newArray = people.filter(function (el) {
-      if(el.gender == userInputGender) {
-        return true && people.filter(searchByName(el))
-        if(searchByName==true){
-         }
+  function searchByGender(people) {
+  let newArray = [];
+  do {
+    let userInputGender = prompt("What is this person's gender?");
+
+    newArray = people.filter(function (el) {
+      if (el.gender === userInputGender) {
+        return true;
       }
-      else{
-        return false && people.filter(searchByName(el))
-          return true;
-      }
-      });
-    
-    return newArray;
-  }
+    });
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
   function searchByHeight(people){
     let userInputHeight = prompt("what is the height of the person?");
      let newArray = people.filter(function (el) {
