@@ -7,7 +7,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
   switch (searchType) {
     case 'yes':
- 
+      // TO DO
       let nameFound = searchByName(data);
       mainMenu(nameFound, data);
       break;
@@ -16,34 +16,38 @@ Build all of your functions for displaying and gathering information below (GUI)
       break;
     default:
       alert("Wrong! Please try again, following the instructions dummy. :)");
-      app(people); 
+      app(people); // restart app
       break;
   }
 }
 
-   function searchByTraits(people) {
+function searchByTraits(people) {
+  let filteredPeople = [];
+  do {
+
     let userSearchChoice = prompt("What would you like to search by? 'height', 'weight', 'eye color', 'gender', 'age', 'occupation', 'multiple'.");
-    let filteredPeople;
-     switch(userSearchChoice) {
+    let searchInput;
+
+    switch (userSearchChoice) {
       case "height":
         filteredPeople = searchByHeight(people);
         break;
       case "weight":
         filteredPeople = searchByWeight(people);
         break;
-        case "eyecolor":
+      case "eye color":
         filteredPeople = searchByEyeColor(people);
         break;
-         case "gender":
+      case "gender":
         filteredPeople = searchByGender(people);
         break;
-      case "dob":
-        filteredPeople = searchByDob(people);
+      case "age":
+        filteredPeople = searchByAge(people);
         break;
-        case "occupation":
+      case "occupation":
         filteredPeople = searchByOccupation(people);
         break;
-        case "multiple":
+      case "multiple":
 
         alert("Answer 'yes' or 'no' for the following questions");
         let height = promptFor("Search by height? ('yes' or 'no')", yesNo);
@@ -109,18 +113,27 @@ Build all of your functions for displaying and gathering information below (GUI)
         }
 
         break;
-
-
-
-
       default:
         alert("You entered an invalid search type! Please try again.");
         searchByTraits(people);
         break;
-    }  
-     let foundPerson = filteredPeople[0];
-     mainMenu(foundPerson, people);
-   }
+    }
+
+    if (filteredPeople.length > 1) {
+      alert("There is more than one person who fits this criteria. Please narrow further");
+      people = filteredPeople;
+    }
+
+  } while (filteredPeople.length > 1);
+
+  let foundPerson = filteredPeople[0];
+
+  mainMenu(foundPerson, people);
+
+}
+
+
+
   function searchByEyeColor(people){
     let userInputEyeColor = prompt("what is the EyeColor of the person?");
      let newArray = people.filter(function (el) {
@@ -180,14 +193,23 @@ Build all of your functions for displaying and gathering information below (GUI)
      return newArray;
   }
   function searchByWeight(people) {
-    let userInputWeight = prompt("How much does the person weigh?");
-     let newArray = people.filter(function (el) {
-      if(el.weight == userInputWeight) {
-        return true;
+    let newArray = [];
+    do {
+      let userInputWeight = prompt("How much does the person weigh?");
+  
+      newArray = people.filter(function (el) {
+        if (el.weight == userInputWeight) {
+          return true;
+        }
+      });
+  
+      if (newArray.length < 1) {
+        alert("No results. Make sure your input is valid! Please try again.");
       }
-      // return true if el.weight matches userInputHeight
-    });
-     return newArray;
+  
+    } while (newArray.length < 1);
+  
+    return newArray;
   }
    // Menu function to call once you find who you are looking for
   function mainMenu(person, people){
