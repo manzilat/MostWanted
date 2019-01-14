@@ -178,16 +178,26 @@ function searchByEyeColor(people) {
   return newArray;
 }
 
-  function searchByHeight(people){
-    let userInputHeight = prompt("what is the height of the person?");
-     let newArray = people.filter(function (el) {
-      if(el.height == userInputHeight) {
+function searchByHeight(people) {
+  let newArray = [];
+  do {
+    let userInputHeight = prompt("What is this person's height?");
+
+    newArray = people.filter(function (el) {
+      if (el.height.toString() === userInputHeight) {
         return true;
       }
-      // return true if el.weight matches userInputHeight
     });
-     return newArray;
-  }
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
    function searchByDob(people){
     let userInputDob = prompt("what is the dob of the person?");
     let newArray = people.filter(function (el) {
@@ -216,6 +226,39 @@ function searchByEyeColor(people) {
     } while (newArray.length < 1);
   
     return newArray;
+  }
+  function searchByAge(people) {
+    let newArray = [];
+    do {    
+      let userInputAge = prompt("How old is the person?");
+      newArray = people.filter(function (el) {
+  
+        if (calculateDob(el.dob) == userInputAge) {
+  
+  
+          return true;
+        }
+      });
+  
+      if (newArray.length < 1) {
+        alert("No results. Make sure your input is valid! Please try again.");
+      }
+  
+    } while (newArray.length < 1);
+  
+    return newArray;
+  }
+  function calculateDob(bdate) {
+
+    dateToday = new Date();
+    birthdate = new Date(bdate);
+    birthYear = dateToday.getFullYear() - birthdate.getFullYear();
+    if (dateToday.getMonth() < birthdate.getMonth() ||
+      dateToday.getMonth() == birthdate.getMonth() &&
+      dateToday.getDate() < birthdate.getDate()) {
+      birthYear = birthYear - 1;
+    }
+    return birthYear;
   }
   
   function searchByWeight(people) {
