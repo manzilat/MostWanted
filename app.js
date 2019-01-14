@@ -310,6 +310,7 @@ function searchByHeight(people) {
       break;
       case "family":
       let children = getChildren(person, people);
+      var parents = getParents(person, people);
 
      // add 
 
@@ -319,12 +320,28 @@ function searchByHeight(people) {
         });
       }
       
-     
+      function getParents(person, people) {
+        var parents = people.filter(function (el) {
+          if (el.id === person.parents[0] || el.id === person.parents[1]) {
+            return true;
+          }
+        });
+        if (parents.length > 0) {
+          if (parents.length > 1) {
+            parents = parents[0].firstName + ", " + parents[1].firstName;
+          }
+          else {
+            parents = parents[0].firstName;
+          }
+        }
+        return parents;
+      }
+    
 //add
       
 
       var personFamily = "Children: " + children + "\n";
-      
+      personFamily += "Parents: " + parents + "\n";
      
       alert(personFamily);
       mainMenu(person, people);
