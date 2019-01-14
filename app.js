@@ -134,18 +134,30 @@ function searchByTraits(people) {
 
 
 
-  function searchByEyeColor(people){
-    let userInputEyeColor = prompt("what is the EyeColor of the person?");
-     let newArray = people.filter(function (el) {
-      if(el.eyeColor == userInputEyeColor) {
+function searchByEyeColor(people) {
+  let newArray = [];
+  do {
+
+    let userInputEyeColor = prompt("What is the person's eye color?");
+
+    newArray = people.filter(function (el) {
+      if (el.eyeColor === userInputEyeColor) {
         return true;
       }
-    else{
-      return false;
-    }
+      else {
+        return false;
+      }
     });
-     return newArray;
-  }
+
+    if (newArray.length < 1) {
+      alert("No results. Make sure your input is valid! Please try again.");
+    }
+
+  } while (newArray.length < 1);
+
+  return newArray;
+}
+
    function searchByGender(people){
     let userInputGender = prompt("what is the Gender of the person?");
      let newArray = people.filter(function (el) {
@@ -182,16 +194,26 @@ function searchByTraits(people) {
     });
      return newArray;
   }
-  function searchByOccupation(people){
-    let userInputOccupation = prompt("what is the Age of the person?");
-     let newArray = people.filter(function (el) {
-      if(el.occupation == userInputOccupation) {
-        return true;
+  function searchByOccupation(people) {
+    let newArray = [];
+    do {
+      let userInputOccupation = prompt("What is the person's occupation?");
+  
+      newArray = people.filter(function (el) {
+        if (el.occupation === userInputOccupation) {
+          return true;
+        }
+      });
+  
+      if (newArray.length < 1) {
+        alert("No results. Make sure your input is valid! Please try again.");
       }
-      // return true if el.weight matches userInputHeight
-    });
-     return newArray;
+  
+    } while (newArray.length < 1);
+  
+    return newArray;
   }
+  
   function searchByWeight(people) {
     let newArray = [];
     do {
