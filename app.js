@@ -312,6 +312,7 @@ function searchByHeight(people) {
       let children = getChildren(person, people);
       var parents = getParents(person, people);
       let spouse = getSpouse(person, people);
+      let grandkids = getGrandkids(children, people);
      // add 
      if (spouse.length > 0) {
       spouse = spouse[0].firstName;
@@ -322,7 +323,13 @@ function searchByHeight(people) {
           return ' ' + el.firstName + ' ' + el.lastName;
         });
       }
-      
+      if (grandkids.length > 0) {
+        grandkids = grandkids.map(function (el) {
+          return ' ' + el.firstName + ' ' + el.lastName;
+        });
+      }
+
+
       function getParents(person, people) {
         var parents = people.filter(function (el) {
           if (el.id === person.parents[0] || el.id === person.parents[1]) {
@@ -355,6 +362,9 @@ function searchByHeight(people) {
       var personFamily = "Children: " + children + "\n";
       personFamily += "Parents: " + parents + "\n";
       personFamily += "Current Spouse: " + spouse + "\n";
+      personFamily += "Grandkids: " + grandkids + "\n";
+
+
       alert(personFamily);
       mainMenu(person, people);
       break;
@@ -374,7 +384,22 @@ function searchByHeight(people) {
     }
   }
   
+  function getGrandkids(children, people) {
+    var grandkids = "";
   
+    if (children.length > 0) {
+  
+      grandkids = people.filter(function (el) {
+        for (let i = 0; i < children.length; i++) {
+          if (el.parents.includes(children[i].id)) {
+            return true;
+          }
+        }
+  
+      });
+    }
+    return grandkids;
+  }
   function getChildren(person, people) {
     var children = people.filter(function (el) {
       if (el.parents.includes(person.id)) {
