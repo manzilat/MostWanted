@@ -311,8 +311,11 @@ function searchByHeight(people) {
       case "family":
       let children = getChildren(person, people);
       var parents = getParents(person, people);
-
+      let spouse = getSpouse(person, people);
      // add 
+     if (spouse.length > 0) {
+      spouse = spouse[0].firstName;
+    }
 
       if (children.length > 0) {
         children = children.map(function (el) {
@@ -336,13 +339,22 @@ function searchByHeight(people) {
         }
         return parents;
       }
+      function getSpouse(person, people) {
+        var spouse = people.filter(function (el) {
+          if (el.id === person.currentSpouse) {
+            return true;
+          }
+        });
+        return spouse;
+      }
+      
     
 //add
       
 
       var personFamily = "Children: " + children + "\n";
       personFamily += "Parents: " + parents + "\n";
-     
+      personFamily += "Current Spouse: " + spouse + "\n";
       alert(personFamily);
       mainMenu(person, people);
       break;
