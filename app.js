@@ -370,7 +370,7 @@ function searchByHeight(people) {
       break;
 
       case "descendants":
-      //alert(getDescendants(person, people, 1));
+      alert(getDescendants(person, people, 1));
       mainMenu(person, people);
       break;// TODO: get person's descendants
       break;
@@ -437,6 +437,70 @@ function searchByHeight(people) {
     // TODO: finish getting the rest of the information to display 
     alert(personInfo);
   }
+  function getDescendants(person, allPeople, counter, children = []) {
+    let grandkids;
+  
+    if (counter < 1 || person === undefined || allPeople === undefined) {
+      return;
+    }
+    else if (counter === 1) {
+  
+      children = getChildren(person, allPeople);
+      // no kids 
+      if (children.length < 1) {
+        return person.firstName + " has no descendants";
+      }
+      // at least one child
+      children = children.map(function (el) {
+        return ' ' + el.firstName + ' ' + el.lastName;
+      });
+  
+      return person.firstName + "'s descendants are: " + children + getDescendants(person, allPeople, 2);
+  
+    }
+    // has kids possiblly grandkids
+    else if (counter === 2) {
+  
+      children = getChildren(person, allPeople);
+  
+      if (children.length < 1) {
+        return '';
+      }
+  
+      grandkids = getGrandkids(children, allPeople);
+  
+      if (grandkids.length < 1) {
+        return '';
+      }
+  
+      else {
+        children = grandkids;
+        grandkids = grandkids.map(function (el) {
+          return ', ' + el.firstName + ' ' + el.lastName;
+        });
+        return grandkids + getDescendants(person, allPeople, 3, children);
+      }
+  
+    }
+  
+    else {
+      // checking even further than grandkids
+      grandkids = getGrandkids(children, allPeople);
+  
+      if (grandkids.length < 1) {
+        return '';
+      }
+      else {
+        children = grandkids;
+        grandkids = grandkids.map(function (el) {
+          return ', ' + el.firstName + ' ' + el.lastName;
+        });
+        return grandkids + getDescendants(person, allPeople, 3, children);
+      }
+    }
+  
+  }
+  
    // function that prompts and validates user input
   function promptFor(question, callback){
     do{
