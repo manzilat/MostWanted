@@ -7,7 +7,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 
   switch (searchType) {
     case 'yes':
-      // TO DO
+      
       let nameFound = searchByName(data);
       mainMenu(nameFound, data);
       break;
@@ -16,7 +16,7 @@ Build all of your functions for displaying and gathering information below (GUI)
       break;
     default:
       alert("Wrong! Please try again, following the instructions dummy. :)");
-      app(people); // restart app
+      app(people); 
       break;
   }
 }
@@ -292,12 +292,12 @@ function searchByHeight(people) {
   
     return newArray;
   }
-   // Menu function to call once you find who you are looking for
+ 
   function mainMenu(person, people){
-     /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
+   
      if(!person){
       alert("Could not find that individual.");
-      return app(people); // restart
+      return app(people); 
     }
      var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
      switch(displayOption){
@@ -305,7 +305,7 @@ function searchByHeight(people) {
       case "info":
       displayPerson(person, people);
       mainMenu(person, people);
-      break;// TODO: get person's info
+      break;
 
       break;
       case "family":
@@ -313,7 +313,7 @@ function searchByHeight(people) {
       var parents = getParents(person, people);
       let spouse = getSpouse(person, people);
       let grandkids = getGrandkids(children, people);
-     // add 
+
      if (spouse.length > 0) {
       spouse = spouse[0].firstName;
     }
@@ -354,12 +354,7 @@ function searchByHeight(people) {
         });
         return spouse;
       }
-      
-    
-//add
-      
-
-      var personFamily = "Children: " + children + "\n";
+     var personFamily = "Children: " + children + "\n";
       personFamily += "Parents: " + parents + "\n";
       personFamily += "Current Spouse: " + spouse + "\n";
       personFamily += "Grandkids: " + grandkids + "\n";
@@ -372,15 +367,15 @@ function searchByHeight(people) {
       case "descendants":
       alert(getDescendants(person, people, 1));
       mainMenu(person, people);
-      break;// TODO: get person's descendants
+      break;
       break;
       case "restart":
-      app(people); // restart
+      app(people);
       break;
       case "quit":
-      return; // stop execution
+      return; 
       default:
-      return mainMenu(person, people); // ask again
+      return mainMenu(person, people); 
     }
   }
   
@@ -420,15 +415,14 @@ function searchByHeight(people) {
      });
      displayPerson(foundPerson[0]);
    }
-   // alerts a list of people
+  
   function displayPeople(people){
     alert(people.map(function(person){
       return person.firstName + " " + person.lastName;
     }).join("\n"));
   }
    function displayPerson(person){
-    // print all of the information about a person:
-    // height, weight, age, name, occupation, eye color.
+    
     var personInfo = "First Name: " + person.firstName + "\n";
     personInfo += "Last Name: " + person.lastName + "\n";
     personInfo += "Gender: " + person.gender + "\n";
@@ -439,7 +433,7 @@ function searchByHeight(people) {
     personInfo += "Occupation: " + person.occupation + "\n";
 
 
-    // TODO: finish getting the rest of the information to display 
+    
     alert(personInfo);
   }
   function getDescendants(person, allPeople, counter, children = []) {
@@ -451,11 +445,11 @@ function searchByHeight(people) {
     else if (counter === 1) {
   
       children = getChildren(person, allPeople);
-      // no kids 
+      
       if (children.length < 1) {
         return person.firstName + " has no descendants";
       }
-      // at least one child
+      
       children = children.map(function (el) {
         return ' ' + el.firstName + ' ' + el.lastName;
       });
@@ -463,7 +457,7 @@ function searchByHeight(people) {
       return person.firstName + "'s descendants are: " + children + getDescendants(person, allPeople, 2);
   
     }
-    // has kids possiblly grandkids
+    
     else if (counter === 2) {
   
       children = getChildren(person, allPeople);
@@ -489,7 +483,7 @@ function searchByHeight(people) {
     }
   
     else {
-      // checking even further than grandkids
+      
       grandkids = getGrandkids(children, allPeople);
   
       if (grandkids.length < 1) {
@@ -506,19 +500,19 @@ function searchByHeight(people) {
   
   }
   
-   // function that prompts and validates user input
+ 
   function promptFor(question, callback){
     do{
       var response = prompt(question).trim();
     } while(!response || !callback(response));
     return response;
   }
-   // helper function to pass into promptFor to validate yes/no answers
+  
   function yesNo(input){
     return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
   }
-   // helper function to pass in as default promptFor validation
+  
   function chars(input){
-    return true; // default validation only
+    return true; 
   } 
   
