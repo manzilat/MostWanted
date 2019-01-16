@@ -413,7 +413,12 @@ function searchByHeight(people) {
    function searchByName(people){
     var firstName = promptFor("What is the person's first name?", chars);
     var lastName = promptFor("What is the person's last name?", chars);
-     // TODO: find the person using the name they entered
+     let foundPerson = people.filter(function (el){
+      if(el.firstName.toLowerCase() == firstName.toLowerCase() && el.lastName.toLowerCase() === lastName.toLowerCase()){
+        return true;
+         }  
+     });
+     displayPerson(foundPerson[0]);
    }
    // alerts a list of people
   function displayPeople(people){
@@ -516,3 +521,4 @@ function searchByHeight(people) {
   function chars(input){
     return true; // default validation only
   } 
+  
